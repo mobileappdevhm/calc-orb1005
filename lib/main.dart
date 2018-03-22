@@ -11,17 +11,12 @@ class MyApp extends StatelessWidget {
       theme: new ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: new MyHomePage(),
+      home: new CalcLayout(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  @override
-  createState() => new _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class CalcLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -74,6 +69,16 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+class MyHomePage extends StatefulWidget {
+  @override
+  createState() => new _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+
+}
+
 
 class CalcButton extends StatelessWidget {
   CalcButton(String keyvalue) {
