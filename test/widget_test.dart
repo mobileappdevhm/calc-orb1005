@@ -30,12 +30,64 @@ void main() {
     expect(find.text('×'), findsOneWidget);
     expect(find.text('÷'), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    //await tester.tap(find.byIcon(Icons.add));
-    //await tester.pump();
 
-    // Verify that our counter has incremented.
-    //expect(find.text('0'), findsNothing);
-    //expect(find.text('1'), findsOneWidget);
+    // Calculate 9 + 9
+    await tester.tap(find.text("9"));
+    await tester.tap(find.text("+"));
+    await tester.tap(find.text("9"));
+    await tester.tap(find.text("="));
+    await tester.pump();
+
+    // Look if result is correct
+    expect(find.text('18'), findsOneWidget);
+
+
+    //calculate 4 x 2.5
+    await tester.tap(find.text("4"));
+    await tester.tap(find.text("×"));
+    await tester.tap(find.text("2"));
+    await tester.tap(find.text("."));
+    await tester.tap(find.text("5"));
+    await tester.tap(find.text("="));
+    await tester.pump();
+
+    // Look if result is correct
+    expect(find.text('10'), findsOneWidget);
+
+    // Multiple operators not allowed
+    await tester.tap(find.text("4"));
+    await tester.tap(find.text("×"));
+    await tester.tap(find.text("+"));
+    await tester.tap(find.text("-"));
+    await tester.tap(find.text("5"));
+    await tester.pump();
+
+    // Look if result is correct
+    expect(find.text('4×5'), findsOneWidget);
+    await tester.tap(find.text("AC"));
+
+    //no operators before number allowed
+    await tester.tap(find.text("÷"));
+    await tester.tap(find.text("5"));
+    await tester.tap(find.text("÷"));
+    await tester.tap(find.text("5"));
+    await tester.pump();
+
+    // Look if result is correct
+    expect(find.text('5÷5'), findsOneWidget);
+    await tester.tap(find.text("AC"));
+
+    //multiple dots not allowed
+    await tester.tap(find.text("."));
+    await tester.tap(find.text("5"));
+    await tester.tap(find.text("."));
+    await tester.tap(find.text("."));
+    await tester.tap(find.text("5"));
+    await tester.tap(find.text("."));
+    await tester.tap(find.text("."));
+    await tester.pump();
+
+    // Look if result is correct
+    expect(find.text('5.5'), findsOneWidget);
   });
 }
