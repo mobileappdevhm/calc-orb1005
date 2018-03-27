@@ -49,7 +49,7 @@ class CalcLayout extends StatelessWidget {
                   makeButtons("7|8|9|×"),
                   makeButtons("4|5|6|-"),
                   makeButtons("1|2|3|+"),
-                  makeButtons("0|,|=")
+                  makeButtons("0|.|=")
                 ],
               ),
             ),
@@ -80,7 +80,8 @@ class CalcState extends State<Calculator> {
   String inputString = " ";
   double prevValue;
   String value = "";
-  String operator = "z";
+  String operator = null;
+  String dot = null;
 
   bool isNumber(String str){
     if (str == null){
@@ -91,27 +92,38 @@ class CalcState extends State<Calculator> {
 
   void onPressed(keyvalue) {
     switch (keyvalue) {
-      case "C":
+      case "AC":
         operator = null;
+        dot = null;
         prevValue = 0.0;
         value = "";
         setState(() => inputString = "");
         break;
       case ".":
+        if(dot == "z"){
+          dot = keyvalue;
+          setState(() {
+            inputString = inputString + keyvalue;
+          });
+          value = value + keyvalue;
+        }
+        break;
       case "%":
-      case "<=":
       case "+/-":
         break;
       case "×":
       case "+":
       case "-":
       case "÷":
-        operator = keyvalue;
-        value = '';
-        prevValue = double.parse(inputString);
-        setState(() {
-          inputString = inputString + keyvalue;
-        });
+        if(operator == "z") {
+          operator = keyvalue;
+          value = '';
+          prevValue = double.parse(inputString);
+          dot = null;
+          setState(() {
+            inputString = inputString + keyvalue;
+          });
+        }
         break;
       case "=":
         if (operator != null) {
@@ -136,6 +148,7 @@ class CalcState extends State<Calculator> {
             }
           });
           operator = null;
+          dot = null;
           prevValue = double.parse(inputString);
           value = '';
           break;
@@ -150,6 +163,9 @@ class CalcState extends State<Calculator> {
             setState(() => inputString = "" + keyvalue);
             operator = 'z';
           }
+          if(dot == null){
+            dot = 'z';
+          }
         } else {
           onPressed(keyvalue);
         }
@@ -163,6 +179,7 @@ class CalcState extends State<Calculator> {
         prevValue: prevValue,
         value: value,
         operator: operator,
+        dot: dot,
         onPressed: onPressed,
         child: new CalcLayout());
   }
@@ -175,6 +192,7 @@ class MainState extends InheritedWidget {
     this.prevValue,
     this.value,
     this.operator,
+    this.dot,
     this.onPressed,
     Widget child,
   })
@@ -184,6 +202,7 @@ class MainState extends InheritedWidget {
   final double prevValue;
   final String value;
   final String operator;
+  final String dot;
   final Function onPressed;
 
   static MainState of(BuildContext context) {
