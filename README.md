@@ -1,8 +1,7 @@
 # calc_app
 
-calculator app. simular to existing calculator on android and iOS devices.
+calculator app. Similar to existing calculator on Android and iOS devices.
 
-## Getting Started
+## Implementation
 
-For help getting started with Flutter, view our online
-[documentation](https://flutter.io/).
+The two buttons "+/-" and "%" are not implemented and therefore have no functionality.
