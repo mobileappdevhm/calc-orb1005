@@ -39,7 +39,7 @@ void main() {
     await tester.pump();
 
     // Look if result is correct
-    expect(find.text('18'), findsOneWidget);
+    expect(find.text('18.0'), findsOneWidget);
 
 
     //calculate 4 x 2.5
@@ -52,7 +52,7 @@ void main() {
     await tester.pump();
 
     // Look if result is correct
-    expect(find.text('10'), findsOneWidget);
+    expect(find.text('10.0'), findsOneWidget);
 
     // Multiple operators not allowed
     await tester.tap(find.text("4"));
